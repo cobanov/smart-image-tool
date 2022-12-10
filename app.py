@@ -1,6 +1,6 @@
-from midas_utils import depth
-from blip_utils import inference
-from png_analyzer import chunk
+from utils.midas_utils import depth
+from utils.blip_utils import inference
+from utils.png_utils import chunk
 import gradio as gr
 
 

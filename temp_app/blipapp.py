@@ -1,5 +1,5 @@
 import gradio as gr
-from blip_utils import inference
+from utils.blip_utils import inference
 
 blip_inputs = [
     gr.inputs.Image(type="pil"),
