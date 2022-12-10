@@ -8,3 +8,7 @@
   - BLIP
   - OFA
 - PNG Chunk Analyzer
+
+## To-Do
+
+- Load models only using
