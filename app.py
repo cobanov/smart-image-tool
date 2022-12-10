@@ -1,9 +1,11 @@
 from utils.midas_utils import depth
-from utils.blip_utils import inference
+# from utils.blip_utils import inference
 from utils.png_utils import chunk
+from utils.video2img_utils import extract
+from utils import utils
 import gradio as gr
 
-
+# MiDaS Depth Map
 midas_inputs = [
     gr.Image(type="pil", label="Original Image"),
     gr.Dropdown(
@@ -26,6 +28,8 @@ midas_outputs = [
     )
 ]
 
+
+# BLIP Image Captioning
 blip_inputs = [
     gr.Image(type="pil"),
     gr.Radio(
@@ -37,10 +41,25 @@ blip_inputs = [
 ]
 blip_outputs = gr.outputs.Textbox(label="Output")
 
+
+## PNG Chunk
 png_inputs = [
     gr.Image(type="pil"),
 ]
 png_outputs = gr.outputs.Textbox(label="Output")
+
+
+## Video2PNG
+inputs = [
+    gr.File(label="Please select video"),
+    gr.Number(
+        value=2,
+    ),
+    gr.Textbox(label="Output Directory"),
+]
+outputs = gr.Text(label="Output Directory")
+
+
 
 
 with gr.Blocks() as demo:
@@ -52,15 +71,18 @@ with gr.Blocks() as demo:
         )
     with gr.Tab("Caption"):
         gr.Interface(
-    inference,
-    blip_inputs,
-    blip_outputs,
-)
+            utils.null_function,
+            blip_inputs,
+            blip_outputs,
+        )
     with gr.Tab("PNG Analyze"):
         gr.Interface(
-    inference,
-    png_inputs,
-    png_outputs,
-)
+            chunk,
+            png_inputs,
+            png_outputs,
+        )
+    with gr.Tab("Video2PNG"):
+        gr.Interface(extract, inputs, outputs)
+
 if __name__ == "__main__":
     demo.launch()
